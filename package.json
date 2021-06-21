@@ -1,0 +1,33 @@
+{
+   "name": "tmp",
+   "version": "0.1.0",
+   "description": "",
+   "main": "index.js",
+   "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "ts-node src/get.ts",
+      "watch": "tsc --watch",
+      "typeorm:cli": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli -f ./src/ormconfig.ts",
+      "migration:generate": "npm run typeorm:cli -- migration:generate -n",
+      "migration:run": "npm run typeorm:cli -- migration:run",
+      "update": "ts-node src/update.ts",
+      "get": "ts-node src/get.ts"
+   },
+   "author": "",
+   "license": "ISC",
+   "dependencies": {
+      "dotenv": "^10.0.0",
+      "jest": "^27.0.4",
+      "mysql2": "^2.2.5",
+      "p-map": "^4.0.0",
+      "typeorm": "^0.2.34",
+      "typeorm-naming-strategies": "^2.0.0"
+   },
+   "devDependencies": {
+      "@types/jest": "^26.0.23",
+      "@types/node": "^8.10.66",
+      "ts-node": "^10.0.0",
+      "tsconfig-paths": "^3.9.0",
+      "typescript": "^4.3.4"
+   }
+}

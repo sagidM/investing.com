@@ -1,0 +1,34 @@
+# Use root/example as user/password credentials
+version: '3.1'
+
+networks:
+  investing-network:
+    driver: bridge
+
+services:
+  db:
+    image: mysql
+    container_name: investing-c-db
+    command: --default-authentication-plugin=mysql_native_password
+    restart: on-failure
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+    expose:
+      - "3306"
+    ports:
+      - 3306:3306
+    networks:
+      - investing-network
+
+  app:
+    build: .
+    container_name: investing-c-app
+    command: bash -c 'echo sleeping11; while !</dev/tcp/db/3306; do sleep 1; echo slept1s; done; npm run update'
+    networks:
+      - investing-network
+    ports:
+      - "8080:8080"
+    depends_on:
+       - db
+    restart: always
+    # entrypoint: ["./wait.sh"]
